@@ -12,7 +12,7 @@
         bienvenido
     </p>
     <p class="translate-2">
-        the vibrant cityscape embraced the dusk, casting shadows on bustling streets, while whispers of possibility lingered in the cool evening air
+        la ciudad vibrante abrazó el crepúsculo, proyectando sombras en calles bulliciosas, mientras susurros de posibilidad flotaban en el fresco aire nocturno
     </p>
     <script type="module">
         import * as hTranslate from '../dist-browser/hTranslate.js';
@@ -22,7 +22,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             await hTranslate.config({
-                baseLang: "es"
+                baseLang: "en"
             });
             await hTranslate.translate("bienvenido", "element", ".translate");
             await hTranslate.translate("la ciudad vibrante abrazó el crepúsculo, proyectando sombras en calles bulliciosas, mientras susurros de posibilidad flotaban en el fresco aire nocturno", "element", ".translate-2");

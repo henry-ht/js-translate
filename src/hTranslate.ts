@@ -1,5 +1,6 @@
 let jsonTranslate:JSON;
 let baseLang:string = "en";
+
 /**
  * 
  * @returns String | null
