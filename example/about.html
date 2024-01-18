@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="h-translate" content="about">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js-translate - about</title>
+</head>
+<body>
+    <p class="translate">
+        Lorem ipsum dolor sit <b>amet</b> consectetur adipisicing elit. Nostrum, omnis, alias maiores nisi fugit sed dolor officia necessitatibus aliquam laborum molestiae et. Perferendis totam modi, vitae libero unde incidunt sed. <br>
+        acerca de nosotros
+    </p>
+    <p class="translate-2">
+        Lorem ipsum dolor sit <b>amet</b> consectetur adipisicing elit. Nostrum, omnis, alias maiores nisi fugit sed dolor officia necessitatibus aliquam laborum molestiae et. <b>acerca de nosotros</b> Perferendis totam modi, vitae libero unde incidunt sed.
+    </p>
+    <script type="module">
+        import * as hTranslate from '../dist-browser/hTranslate.js';
+        window.hTranslate = hTranslate;
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await hTranslate.config({
+                baseLang: "es"
+            });
+            await hTranslate.translate("acerca de nosotros", "element", ".translate");
+            await hTranslate.translate("acerca de nosotros", "element", ".translate-2");
+        });
+    </script>
+</body>
+</html>

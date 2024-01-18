@@ -1,0 +1,32 @@
+{
+  "name": "@henryht/js-translate",
+  "version": "1.0.0",
+  "description": "A complete set for your translations",
+  "main": "dist-node/hTranslate.js",
+  "browser": "dist-browser/hTranslate.js",
+  "type": "module",
+  "scripts": {
+    "build-browser": "tsc src/hTranslate.ts --outDir dist-browser --module ES6",
+    "build-node": "tsc src/hTranslate.ts --outDir dist-node",
+    "build": "npm run build-browser & npm run build-node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henry-ht/js-translate.git"
+  },
+  "keywords": [
+    "translate",
+    "javascript",
+    "typescript",
+    "simple"
+  ],
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "author": "Henry Torres (HenryHT)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/henry-ht/js-translate/issues"
+  },
+  "homepage": "https://github.com/henry-ht/js-translate#readme"
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js-translate with react js</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script> 
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root">
+
+    </div>
+    
+    <script type="module">
+        import * as hTranslate from '../dist-browser/hTranslate.js';
+        window.hTranslate = hTranslate;
+    </script>
+
+    <script type="text/babel" >
+        hTranslate.config({
+            baseLang: "en"
+        });
+        function TextOne() {
+            const [mensaje, setMensaje] = React.useState('');
+
+            React.useEffect(() => {
+                hTranslate.translate("bienvenido").then(resultado => {
+                    setMensaje(resultado);
+                });
+            }, []);
+            
+            return <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. <b>{mensaje}</b> Nemo ullam quis quia deserunt voluptatum? Quis animi repellat iste natus illo deleniti laboriosam, soluta rerum, id accusamus ipsa totam, vero est!</p>;
+        }
+
+        function TextTwo() {
+            const [mensaje, setMensaje] = React.useState('');
+
+            React.useEffect(() => {
+                hTranslate.translate("la ciudad vibrante abrazó el crepúsculo, proyectando sombras en calles bulliciosas, mientras susurros de posibilidad flotaban en el fresco aire nocturno").then(resultado => {
+                    setMensaje(resultado);
+                });
+            }, []);
+            return <p>{mensaje}</p>;
+        }
+
+        function App() {
+            return (
+                <div>
+                    <TextOne />
+                    <TextTwo />
+                </div>
+            );
+        }
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+</html>
