@@ -16,9 +16,10 @@
   },
   "keywords": [
     "translate",
-    "javascript",
-    "typescript",
-    "simple"
+    "vuejs",
+    "reactjs",
+    "angular",
+    "normal websites"
   ],
   "devDependencies": {
     "typescript": "^5.3.3"
