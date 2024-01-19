@@ -34,17 +34,18 @@ const getFileTranslate = async () => {
             }
         
             const data = await response.json();
+            if(jsonTranslate == undefined){
+                jsonTranslate = data;
+            }
             return data;
         } catch (error) {
             return {};
         }
     }
-
     return {};
-
 }
 
-export const config = (config: { [x: string]: string; }) => {
+export const config = async (config: { [x: string]: string; }) => {
     for (const key in config) {
         if (Object.prototype.hasOwnProperty.call(config, key)) {
             const element = config[key];
@@ -55,6 +56,8 @@ export const config = (config: { [x: string]: string; }) => {
             }
         }
     }
+    await getFileTranslate();
+    return true;
 }
 
 /**
@@ -63,22 +66,19 @@ export const config = (config: { [x: string]: string; }) => {
  * @param impType string // normal, element,  
  * @returns 
  */
-export const translate = async (text:String, impType:string = "normal", querySelector:string) => {
-    if(jsonTranslate == undefined){
-        jsonTranslate = await getFileTranslate();
-    }
+export const translate = (text:string, impType:string = "normal", querySelector:string) => {
     switch (impType) {
         case "element":
             const element: HTMLElement | null = document.querySelector(querySelector);
             if (element instanceof HTMLElement) {
-                let textTrans = (jsonTranslate[text as keyof typeof jsonTranslate] || text);
+                let textTrans = jsonTranslate != undefined ? (jsonTranslate[text as keyof typeof jsonTranslate] || text) : text;
                 element.innerHTML = element.innerHTML.replace(`${text}`, `${textTrans}`);
             }
             break;
 
         case "normal":
         default:
-            return (jsonTranslate[text as keyof typeof jsonTranslate] || text);
+            return jsonTranslate != undefined ? (jsonTranslate[text as keyof typeof jsonTranslate] || text) : text;
             break;
     }
 }

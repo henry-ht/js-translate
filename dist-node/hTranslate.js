@@ -79,6 +79,9 @@ var getFileTranslate = function () { return __awaiter(void 0, void 0, void 0, fu
                 return [4 /*yield*/, response.json()];
             case 4:
                 data = _a.sent();
+                if (jsonTranslate == undefined) {
+                    jsonTranslate = data;
+                }
                 return [2 /*return*/, data];
             case 5:
                 error_1 = _a.sent();
@@ -87,18 +90,28 @@ var getFileTranslate = function () { return __awaiter(void 0, void 0, void 0, fu
         }
     });
 }); };
-var config = function (config) {
-    for (var key in config) {
-        if (Object.prototype.hasOwnProperty.call(config, key)) {
-            var element = config[key];
-            switch (key) {
-                case "baseLang":
-                    baseLang = element;
-                    break;
-            }
+var config = function (config) { return __awaiter(void 0, void 0, void 0, function () {
+    var key, element;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                for (key in config) {
+                    if (Object.prototype.hasOwnProperty.call(config, key)) {
+                        element = config[key];
+                        switch (key) {
+                            case "baseLang":
+                                baseLang = element;
+                                break;
+                        }
+                    }
+                }
+                return [4 /*yield*/, getFileTranslate()];
+            case 1:
+                _a.sent();
+                return [2 /*return*/, true];
         }
-    }
-};
+    });
+}); };
 exports.config = config;
 /**
  *
@@ -108,33 +121,18 @@ exports.config = config;
  */
 var translate = function (text, impType, querySelector) {
     if (impType === void 0) { impType = "normal"; }
-    return __awaiter(void 0, void 0, void 0, function () {
-        var element, textTrans;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    if (!(jsonTranslate == undefined)) return [3 /*break*/, 2];
-                    return [4 /*yield*/, getFileTranslate()];
-                case 1:
-                    jsonTranslate = _a.sent();
-                    _a.label = 2;
-                case 2:
-                    switch (impType) {
-                        case "element":
-                            element = document.querySelector(querySelector);
-                            if (element instanceof HTMLElement) {
-                                textTrans = (jsonTranslate[text] || text);
-                                element.innerHTML = element.innerHTML.replace("".concat(text), "".concat(textTrans));
-                            }
-                            break;
-                        case "normal":
-                        default:
-                            return [2 /*return*/, (jsonTranslate[text] || text)];
-                            break;
-                    }
-                    return [2 /*return*/];
+    switch (impType) {
+        case "element":
+            var element = document.querySelector(querySelector);
+            if (element instanceof HTMLElement) {
+                var textTrans = jsonTranslate != undefined ? (jsonTranslate[text] || text) : text;
+                element.innerHTML = element.innerHTML.replace("".concat(text), "".concat(textTrans));
             }
-        });
-    });
+            break;
+        case "normal":
+        default:
+            return jsonTranslate != undefined ? (jsonTranslate[text] || text) : text;
+            break;
+    }
 };
 exports.translate = translate;

@@ -19,44 +19,48 @@
     </script>
 
     <script type="text/babel" >
-        hTranslate.config({
-            baseLang: "es"
-        });
-        function TextOne() {
-            const [mensaje, setMensaje] = React.useState('');
-
-            React.useEffect(() => {
-                hTranslate.translate("bienvenido").then(resultado => {
-                    setMensaje(resultado);
-                });
-            }, []);
-            
-            return <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. <b>{mensaje}</b> Nemo ullam quis quia deserunt voluptatum? Quis animi repellat iste natus illo deleniti laboriosam, soluta rerum, id accusamus ipsa totam, vero est!</p>;
-        }
-
-        function TextTwo() {
-            const [mensaje, setMensaje] = React.useState('');
-
-            React.useEffect(() => {
-                hTranslate.translate("la ciudad vibrante abrazó el crepúsculo, proyectando sombras en calles bulliciosas, mientras susurros de posibilidad flotaban en el fresco aire nocturno").then(resultado => {
-                    setMensaje(resultado);
-                });
-            }, []);
-            return <p>{mensaje}</p>;
-        }
-
-        function App() {
-            return (
-                <div>
-                    <TextOne />
-                    <TextTwo />
-                </div>
+        async function onReady() {
+            await hTranslate.config({
+                baseLang: "es"
+            });
+            function TextOne() {
+                const [mensaje, setMensaje] = React.useState('');
+    
+                React.useEffect(() => {
+                    setMensaje(hTranslate.translate("bienvenido"));
+                }, []);
+                
+                return <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. <b>{mensaje}</b> Nemo ullam quis quia deserunt voluptatum? Quis animi repellat iste natus illo deleniti laboriosam, soluta rerum, id accusamus ipsa totam, vero est!</p>;
+            }
+    
+            function TextTwo() {
+                const [mensaje, setMensaje] = React.useState('');
+    
+                React.useEffect(() => {
+                    setMensaje(hTranslate.translate("la ciudad vibrante abrazó el crepúsculo, proyectando sombras en calles bulliciosas, mientras susurros de posibilidad flotaban en el fresco aire nocturno"));
+                }, []);
+                return <p>{mensaje}</p>;
+            }
+    
+            function App() {    
+                return (
+                    <div>
+                        <TextOne />
+                        <TextTwo />
+                    </div>
+                );
+            }
+            ReactDOM.render(
+                <App />,
+                document.getElementById('root')
             );
+            
         }
-        ReactDOM.render(
-            <App />,
-            document.getElementById('root')
-        );
+        if (document.readyState !== "loading") {
+            onReady(); 
+        } else {
+            document.addEventListener("DOMContentLoaded", onReady);
+        }
     </script>
 </body>
 </html>
