@@ -18,11 +18,16 @@ const getLang = () => {
     return userLang;
 }
 
-const getFileTranslate = async () => {
+const getFileTranslate = async (meta:boolean, nameFile?:string) => {
     let langFile:String = getLang();
     
     if(baseLang != langFile){
-        let metaFile = await getMetaFile();
+        let metaFile = null;
+        if(meta){
+            metaFile = await getMetaFile();
+        }else{
+            metaFile = nameFile;
+        }
         if(metaFile != null){
             langFile = langFile+'.'+metaFile;
         }
@@ -45,7 +50,7 @@ const getFileTranslate = async () => {
     return {};
 }
 
-export const config = async (config: { [x: string]: string; }) => {
+export const config = (config: { [x: string]: string; }) => {
     for (const key in config) {
         if (Object.prototype.hasOwnProperty.call(config, key)) {
             const element = config[key];
@@ -56,7 +61,14 @@ export const config = async (config: { [x: string]: string; }) => {
             }
         }
     }
-    await getFileTranslate();
+}
+
+export const loadFile = async (nameFile:string) => {
+    if(nameFile == null){
+        await getFileTranslate(true);
+    }else{
+        await getFileTranslate(false, nameFile);
+    }
     return true;
 }
 

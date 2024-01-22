@@ -33,6 +33,11 @@ npm i @henryht/js-translate
     });
     ```
 
+    -   The function 'loadFile' loads the required translation file. Optionally, you can pass the 'pageName' as an argument to load a translation file for a specific page.
+    ```
+    hTranslate.loadFile();
+    ```
+
     -   The function `translate` has various parameters such as `querySelector`, which is a JavaScript `document.querySelector`. The other parameter is `impType`, which has a default value of `normal`, but if your website is not modern, change it to `element`.
     ```
     hTranslate.translate(text:string, impType:string, querySelector:string);

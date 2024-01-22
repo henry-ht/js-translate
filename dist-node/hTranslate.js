@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.translate = exports.config = void 0;
+exports.translate = exports.loadFile = exports.config = void 0;
 var jsonTranslate;
 var baseLang = "en";
 /**
@@ -54,65 +54,80 @@ var getLang = function () {
     var userLang = navigator.language;
     return userLang;
 };
-var getFileTranslate = function () { return __awaiter(void 0, void 0, void 0, function () {
+var getFileTranslate = function (meta, nameFile) { return __awaiter(void 0, void 0, void 0, function () {
     var langFile, metaFile, response, data, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 langFile = getLang();
-                if (!(baseLang != langFile)) return [3 /*break*/, 6];
+                if (!(baseLang != langFile)) return [3 /*break*/, 8];
+                metaFile = null;
+                if (!meta) return [3 /*break*/, 2];
                 return [4 /*yield*/, getMetaFile()];
             case 1:
                 metaFile = _a.sent();
+                return [3 /*break*/, 3];
+            case 2:
+                metaFile = nameFile;
+                _a.label = 3;
+            case 3:
                 if (metaFile != null) {
                     langFile = langFile + '.' + metaFile;
                 }
-                _a.label = 2;
-            case 2:
-                _a.trys.push([2, 5, , 6]);
+                _a.label = 4;
+            case 4:
+                _a.trys.push([4, 7, , 8]);
                 return [4 /*yield*/, fetch('langs/' + langFile + '.json')];
-            case 3:
+            case 5:
                 response = _a.sent();
                 if (!response.ok) {
                     throw new Error('Error loading the JSON file');
                 }
                 return [4 /*yield*/, response.json()];
-            case 4:
+            case 6:
                 data = _a.sent();
                 if (jsonTranslate == undefined) {
                     jsonTranslate = data;
                 }
                 return [2 /*return*/, data];
-            case 5:
+            case 7:
                 error_1 = _a.sent();
                 return [2 /*return*/, {}];
-            case 6: return [2 /*return*/, {}];
+            case 8: return [2 /*return*/, {}];
         }
     });
 }); };
-var config = function (config) { return __awaiter(void 0, void 0, void 0, function () {
-    var key, element;
+var config = function (config) {
+    for (var key in config) {
+        if (Object.prototype.hasOwnProperty.call(config, key)) {
+            var element = config[key];
+            switch (key) {
+                case "baseLang":
+                    baseLang = element;
+                    break;
+            }
+        }
+    }
+};
+exports.config = config;
+var loadFile = function (nameFile) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                for (key in config) {
-                    if (Object.prototype.hasOwnProperty.call(config, key)) {
-                        element = config[key];
-                        switch (key) {
-                            case "baseLang":
-                                baseLang = element;
-                                break;
-                        }
-                    }
-                }
-                return [4 /*yield*/, getFileTranslate()];
+                if (!(nameFile == null)) return [3 /*break*/, 2];
+                return [4 /*yield*/, getFileTranslate(true)];
             case 1:
                 _a.sent();
-                return [2 /*return*/, true];
+                return [3 /*break*/, 4];
+            case 2: return [4 /*yield*/, getFileTranslate(false, nameFile)];
+            case 3:
+                _a.sent();
+                _a.label = 4;
+            case 4: return [2 /*return*/, true];
         }
     });
 }); };
-exports.config = config;
+exports.loadFile = loadFile;
 /**
  *
  * @param text string

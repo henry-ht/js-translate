@@ -1,6 +1,6 @@
 {
   "name": "@henryht/js-translate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A complete set for your translations",
   "main": "dist-node/hTranslate.js",
   "browser": "dist-browser/hTranslate.js",

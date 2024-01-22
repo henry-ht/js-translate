@@ -24,6 +24,7 @@
             await hTranslate.config({
                 baseLang: "es"
             });
+            await hTranslate.loadFile();
             await hTranslate.translate("bienvenido", "element", ".translate");
             await hTranslate.translate("la ciudad vibrante abrazó el crepúsculo, proyectando sombras en calles bulliciosas, mientras susurros de posibilidad flotaban en el fresco aire nocturno", "element", ".translate-2");
         });
